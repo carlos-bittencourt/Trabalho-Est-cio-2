@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receitas</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .bg-warning {
+            background-color: #ffc107 !important;
+        }
+    </style>
+</head>
+<body onload="preencheCatalogo()">
+    <div class="container-fluid bg-warning">
+        <h1 class="text">Catálogo de Receitas</h1>
+        <div id="pnlCatalogo" class="d-flex flex-wrap"></div>
+    </div>
+
+    <script>
+        const receitas = [
+            {
+                titulo: "Arroz de Couve-Flor",
+                imagem: "arroz-couve-flor.png",
+                preparo: "Deixe a couve-flor picada. Adicione os ingredientes e refogue bem. Adicione sal, tampe a panela e deixe cozinhar..",
+                ingredientes: ["Arroz", "Couve-Flor", "Cebola média", "Azeite"],
+            },
+            {
+                titulo: "Bolo de Café",
+                imagem: "bolo-café.png",
+                preparo: "Bata o açucar, as gemas e o café. Adicione farinha e chocolate e mexa bem. Bata as claras e junte à mistura..",
+                ingredientes: ["Farinha de Trigo", "Açucar", "Café Coado", "Chocolate em Pó", "Ovos"],
+            },
+            {
+                titulo: "Coxinha de Brigadeiro",
+                imagem: "coxinha-de-chocolate.png",
+                preparo: "Junte o leite condensado, chocolate em pó e manteiga. Aqueça no fogo baixo. Envolva os morangos e passe no granulado..",
+                ingredientes: ["Leite Condensado", "Chocolate em Pó", "Manteiga", "Morango", "Chocolate Granulado"],
+            },
+        ];
+
+        const getListaIngredientes = (receita) => {
+            const lista = receita.ingredientes.map(ingrediente => `<li>${ingrediente}</li>`).join('');
+            return `<ul>${lista}</ul>`;
+        };
+
+        const getCard = (receita) => {
+            const listaIngredientes = getListaIngredientes(receita);
+            return `
+                <div class="card m-2" style="width: 250px;">
+                    <img src="${receita.imagem}" class="card-img-top" alt="${receita.titulo}">
+                    <div class="card-body">
+                        <h5 class="card-title">${receita.titulo}</h5>
+                        <div class="card-text">${listaIngredientes}</div>
+                        <hr>
+                        <p>${receita.preparo}</p>
+                    </div>
+                </div>
+            `;
+        };
+
+        const preencheCatalogo = () => {
+            const pnlCatalogo = document.getElementById('pnlCatalogo');
+            const cardsHTML = receitas.map(receita => getCard(receita)).join('');
+            pnlCatalogo.innerHTML = cardsHTML;
+        };
+    </script>
+</body>
+</html>
